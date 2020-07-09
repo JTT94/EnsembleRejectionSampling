@@ -51,7 +51,7 @@ class ERS(ABC):
         
             
         predlike=np.zeros(T)  
-        filter_state=np.zeros((T,N)) 
+        filter_state=np.zeros((T,N))
 
         # bound init w
         winit = self._w_init_func(x)
@@ -129,7 +129,6 @@ class ERS(ABC):
             acccepted_x.append(xacc)
             candidates_x.append(cand_x)
             n_trials += n_trial
-            print(n_acc_samples)
 
         acccepted_x = np.array(acccepted_x)
         candidates_x = np.concatenate(candidates_x)

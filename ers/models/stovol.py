@@ -1,6 +1,6 @@
 import numpy as np
 from ..base import ERS
-from ..utils import compute_squared_distances, bound_initw, bound_w
+from ..utils import compute_squared_distances
 
 class StoVol(ERS):
 
@@ -28,7 +28,7 @@ class StoVol(ERS):
         icand[T-1] = np.random.choice(N,size=1, replace=True, p=filter_state[-1])
 
         for t in np.arange(0, T-1)[::-1]:
-            transition = np.exp(-(x[t+1,icand[t+1],:]-self.alpha*x[t])**2/(2*self.sv**2))/self.sv
+            transition = np.exp(-np.sum((x[t+1,icand[t+1],:]-self.alpha*x[t])**2,axis=-1)/(2*self.sv**2))/self.sv
             backfilter = filter_state[t]*transition.squeeze()
             backfilter = backfilter/np.sum(backfilter) 
             icand[t]   = np.random.choice(N, size=1, replace= True, p=backfilter)
@@ -47,7 +47,7 @@ class StoVol(ERS):
         return w
 
     def _w_init_func(self, x):
-        return np.exp(-x[0,:,0]**2./(2*self.ss**2))/self.ss
+        return np.exp(-np.sum(x[0,:,:]**2, axis=-1)/(2*self.ss**2))/self.ss
 
     def _bound_initw(self, winit, icand):
         winit[icand[0]] = 1./self.ss
