@@ -15,3 +15,4 @@ def bound_w(w, wbar, icand, t):
     w[icand[t],:] = wbar[t]
     w[:, icand[t-1]] = wbar[t]
     return w
+
