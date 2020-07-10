@@ -6,8 +6,9 @@ class StoVol(ERS):
 
     def __init__(self, dimension, alpha, beta, sv):
         super().__init__(dimension)
-        self.beta = beta
+        
         self.alpha = alpha
+        self.beta = beta
         self.sv = sv
         self.ss = sv/np.sqrt(1-alpha**2)
         
@@ -28,7 +29,11 @@ class StoVol(ERS):
         icand[T-1] = np.random.choice(N,size=1, replace=True, p=filter_state[-1])
 
         for t in np.arange(0, T-1)[::-1]:
-            transition = np.exp(-np.sum((x[t+1,icand[t+1],:]-self.alpha*x[t])**2,axis=-1)/(2*self.sv**2))/self.sv
+            x1 = x[t+1,icand[t+1],:]
+            x2=self.alpha*x[t] 
+            #x2 = np.moveaxis(np.einsum('ij,kj', self.alpha, x[t]),0,1)
+            
+            transition = np.exp(-np.sum((x1- x2)**2, axis=-1)/(2*self.sv**2))/self.sv
             backfilter = filter_state[t]*transition.squeeze()
             backfilter = backfilter/np.sum(backfilter) 
             icand[t]   = np.random.choice(N, size=1, replace= True, p=backfilter)
@@ -36,6 +41,7 @@ class StoVol(ERS):
         
     def w_func(self, x, t):
         x1=x[t]
+        #x2 = np.moveaxis(np.einsum('ij,kj', self.alpha, x[t-1]),0,1)
         x2=self.alpha*x[t-1]  
         dists = compute_squared_distances(x1,x2)
 
