@@ -1,0 +1,22 @@
+name: My Project
+
+conda_env: conda.yaml
+
+entry_points:
+  main:
+    parameters:
+      T:  {type: int, default: 100}
+      dimension: {type: int, default: 1}
+      n_particles: {type: int, default: 1000}
+      n_workers:  {type: int, default: 1}
+      n_samples:  {type: int, default: 1}
+      model_tag:  {type: str, default: 'nonLinearAR'}
+      out_dir:  {type: str, default: '.'}
+    command: "python main.py \
+		--T {T} \
+		--n_particles {n_particles}
+		--n_samples {n_samples} \
+		--n_workers {n_workers} \
+		--model_tag {model_tag} \
+		--out_dir {out_dir} \
+		--d {dimension}"

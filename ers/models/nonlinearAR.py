@@ -68,3 +68,23 @@ class NonLinearAR(ERS):
         w[icand[t],:] = 1./self.sv
         w[:, icand[t-1]] = 1./self.sv
         return w
+
+    def generate_x(self, T):
+        # true hidden state
+        d = self.dimension
+        xtrue = np.zeros((T,d))
+        xtrue[0,:] = np.random.randn(d)
+        for t in range(1,T):
+            x2 = np.einsum('ij,j', self.alpha, np.tanh(xtrue[t-1]))
+            xtrue[t] = x2 + self.sv * np.random.randn(d)
+        return xtrue
+    
+    def generate_y(self,x):
+        T = x.shape[0]
+        d = self.dimension
+        y = np.zeros((T,d))
+        y[0] = x[0]+ self.sw*np.random.randn(1)
+
+        for t in range(2,T):
+            y[t] = x[t] + self.sw * np.random.randn(d)
+        return y

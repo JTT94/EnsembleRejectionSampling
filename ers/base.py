@@ -94,6 +94,7 @@ class ERS(ABC):
 
     def sample_one(self, n_particles, T, y):
         cand_x = []
+        paccs = []
         accepted = False
         n_trial = 0
         while not accepted:   
@@ -109,30 +110,38 @@ class ERS(ABC):
                     xcand[t] = x[t,icand[t],:]
                 
                 cand_x.append(xcand.copy())
+                paccs.append(pacc)
+
                 u = np.random.random()
                 if u < pacc:
-                    xacc = xcand.copy()
                     accepted = True
         
-        return xacc, cand_x, n_trial
+        return cand_x, n_trial, paccs
 
-    def sample_n(self, n_samples, n_particles, T, y):
+    def sample_n(self, n_samples, n_particles, T, y, verbose=False):
 
         
-        acccepted_x = []
+        accepted_x_indices = []
         candidates_x = []
+        paccss = []
         n_trials = 0
 
-        for n_acc_samples in tqdm(range(n_samples)):
-            accepted = False
-            xacc, cand_x, n_trial = self.sample_one(n_particles, T, y)
-            acccepted_x.append(xacc)
-            candidates_x.append(cand_x)
-            n_trials += n_trial
+        for i in tqdm(range(n_samples)):
+            if verbose:
+                print('\n Iteration: {0}'.format(i))
 
-        acccepted_x = np.array(acccepted_x)
+            cand_x, n_trial, paccs = self.sample_one(n_particles, T, y)
+            candidates_x.append(cand_x)
+            paccss.append(paccs)
+            n_trials += n_trial
+            accepted_x_indices.append(n_trials-1)
+            
+            
+
         candidates_x = np.concatenate(candidates_x)
-        return acccepted_x, candidates_x, n_trials
+        paccs = np.concatenate(paccss)
+        accepted_x_indices = np.array(accepted_x_indices)
+        return accepted_x_indices, candidates_x, n_trials, paccs
 
 
 
