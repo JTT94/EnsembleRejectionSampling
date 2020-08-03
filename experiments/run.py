@@ -11,22 +11,22 @@ run1 = mlflow.projects.run(
     os.path.join(dir_path,'./run_model'),
     backend='local',
     synchronous=False,
-    parameters = {'T' : 50,
+    parameters = {'T' : 100,
                  'dimension' : 1,
-                 'n_samples': 2,
-                 'n_particles' : 500,
-                 'n_workers' : 1})
+                 'n_samples': 25,
+                 'n_particles' : 1000,
+                 'n_workers' : 20})
 run_ids.append(run1.run_id)
 
 run2 = mlflow.projects.run(
     os.path.join(dir_path,'./run_model'),
     backend='local',
     synchronous=False,
-    parameters = {'T' : 100,
+    parameters = {'T' : 500,
                  'dimension' : 1,
-                 'n_samples': 1,
-                 'n_particles' : 500,
-                 'n_workers' : 1})
+                 'n_samples': 25,
+                 'n_particles' : 2000,
+                 'n_workers' : 20})
 obj = mlflow.tracking.MlflowClient()
 
 run_ids.append(run2.run_id)
