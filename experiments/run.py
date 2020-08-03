@@ -7,7 +7,7 @@ print(dir_path)
 mlflow.projects.run(
     os.path.join(dir_path,'./run_model'),
     backend='local',
-    synchronous=False,
+    synchronous=True,
     parameters = {'T' : 50,
                  'dimension' : 1,
                  'n_samples': 2,
@@ -18,7 +18,7 @@ mlflow.projects.run(
 mlflow.projects.run(
     os.path.join(dir_path,'./run_model'),
     backend='local',
-    synchronous=True,
+    synchronous=False,
     parameters = {'T' : 200,
                  'dimension' : 1,
                  'n_samples': 1,
