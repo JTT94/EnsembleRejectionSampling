@@ -69,18 +69,22 @@ fp = os.path.join(out_dir, 'accepted_xs.pkl')
 pickle_obj(accepted_xs, fp)
 log_artifact(fp)
 
-fig, ax = plt.subplots(d, gridspec_kw={'hspace': 0.4})
+fig, axs = plt.subplots(d, gridspec_kw={'hspace': 0.4})
 for d_i in range(d):
-    ax[d_i].set_title('Dimension {0}'.format(d_i))
+    if d > 1:
+        ax = axs[d_i] 
+    else:
+        ax = axs
+    ax.set_title('Dimension {0}'.format(d_i))
     for i in range(candidate_xs.shape[0]):
-        ax[d_i].plot(candidate_xs[i,:,d_i], color = 'gray')
+        ax.plot(candidate_xs[i,:,d_i], color = 'gray')
         
     for i in range(accepted_xs.shape[0]):
-        ax[d_i].plot(accepted_xs[i,:,d_i], color = 'blue')
+        ax.plot(accepted_xs[i,:,d_i], color = 'blue')
 
     average_x = np.mean(accepted_xs, axis=0)
-    ax[d_i].plot(xtrue[:,d_i], color = 'red')
-    ax[d_i].plot(average_x[:,d_i], color = 'pink')
+    ax.plot(xtrue[:,d_i], color = 'red')
+    ax.plot(average_x[:,d_i], color = 'pink')
 
 fp = os.path.join(out_dir, 'summary_plot.png')
 plt.savefig(fp)
