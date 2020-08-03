@@ -2,13 +2,13 @@ from mlflow import log_metric, log_param, log_artifacts, log_artifact
 import os, sys
 import numpy as np
 import matplotlib.pyplot as plt
+matplotlib.use('Agg')
 
 sys.path.append('../..')
 from ers.models import NonLinearAR
 from ers.runners import run_parallel, process_outputs, model_factory
 from ers.utils import pickle_obj, unpickle_obj
 import argparse
-
 
 #if __name__ == "__main__":
 # get arguments
