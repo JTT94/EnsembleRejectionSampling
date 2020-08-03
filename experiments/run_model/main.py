@@ -69,6 +69,12 @@ fp = os.path.join(out_dir, 'accepted_xs.pkl')
 pickle_obj(accepted_xs, fp)
 log_artifact(fp)
 
+pacc_std = np.sqrt(np.var(paccs))
+pacc_avg = np.mean(paccs)
+log_metric('pacc_std', pacc_std)
+log_metric('pacc_avg', pacc_avg)
+
+
 fig, axs = plt.subplots(d, gridspec_kw={'hspace': 0.4})
 for d_i in range(d):
     if d > 1:
@@ -91,7 +97,3 @@ plt.savefig(fp)
 log_artifact(fp)
 
 
-pacc_std = np.sqrt(np.var(paccs))
-pacc_avg = np.mean(paccs)
-log_metric('pacc_std', pacc_std)
-log_metric('pacc_avg', pacc_avg)
