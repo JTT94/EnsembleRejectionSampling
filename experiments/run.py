@@ -4,6 +4,9 @@ mlflow.projects.run(
     './run_model',
     backend='local',
     synchronous=False,
-    parameters = {'T' : 10,
-                 'n_workers' : 1})
+    parameters = {'T' : 500,
+                 'dimension' : 1,
+                 'n_samples': 50,
+                 'n_particles' : 1000,
+                 'n_workers' : 10})
 
