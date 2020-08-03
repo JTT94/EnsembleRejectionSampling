@@ -2,6 +2,8 @@ from mlflow import log_metric, log_param, log_artifacts, log_artifact
 import os, sys
 import numpy as np
 import matplotlib.pyplot as plt
+
+import matplotlib 
 matplotlib.use('Agg')
 
 sys.path.append('../..')
