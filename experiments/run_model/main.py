@@ -15,7 +15,7 @@ import argparse
 #if __name__ == "__main__":
 # get arguments
 parser = argparse.ArgumentParser()
-parser.add_argument('--T', action='store', type=int, default=100)
+parser.add_argument('--T', action='store', type=int, default=50)
 parser.add_argument('--alpha', action='store', type=int, default=0.9)
 parser.add_argument('--beta', action='store', type=int, default=0.7)
 parser.add_argument('--sv', action='store', type=int, default=0.3)
@@ -24,7 +24,7 @@ parser.add_argument('--d', action='store', type=int, default=1)
 parser.add_argument('--n_samples', action='store', type=int, default=10)
 parser.add_argument('--n_particles', action='store', type=int, default=500)
 parser.add_argument('--seed', action='store', type=int, default=16)
-parser.add_argument('--n_workers', action='store', type=int, default=1)
+parser.add_argument('--n_workers', action='store', type=int, default=2)
 parser.add_argument('--out_dir', action='store', type=str, default='./')
 parser.add_argument('--model_tag', action='store', type=str, default='nonLinearAR')
 # args = parser.parse_args()
