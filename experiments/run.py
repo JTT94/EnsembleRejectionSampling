@@ -63,8 +63,8 @@ obj = mlflow.tracking.MlflowClient()
 def runs_finished(run_ids):
     return all(obj.get_run(run_id).info.status == 'FINISHED' for run_id in run_ids)
 
-#while not runs_finished(run_ids):
-#    time.sleep(1.)
+while not runs_finished(run_ids):
+    time.sleep(1.)
 
 #obj.get_run(run1.run_id)
 
