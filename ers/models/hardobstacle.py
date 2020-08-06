@@ -9,7 +9,6 @@ class HardObstacle(ERS):
         super().__init__(dimension)
         self.sv = sv
         
-        
     def random_grid(self, N, T, y):
         x=np.random.random((T,N,self.dimension))
         return x
