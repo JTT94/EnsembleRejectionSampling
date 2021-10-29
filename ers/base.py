@@ -1,6 +1,41 @@
-import numpy as np
 from abc import ABC, abstractmethod
+
+import numpy as np
 from tqdm import tqdm
+
+
+class LogWeightModel:
+    def grid_sampler(self, key, N):
+        raise NotImplementedError
+
+    def log_w0(self, x0):
+        raise NotImplementedError
+
+    @property
+    def log_w0_upper(self):
+        raise NotImplementedError
+
+    def log_wt(self, x_t_1, x_t):
+        raise NotImplementedError
+
+    def log_Mt(self, x_t_1, x_t):
+        raise NotImplementedError
+
+
+class BoundedLogWeightModel(LogWeightModel):
+    def grid_sampler(self, key, N):
+        raise NotImplementedError
+
+    @property
+    def log_w0_upper(self):
+        raise NotImplementedError
+
+    def log_wt_partial_upper(self, x_t, left):
+        raise NotImplementedError
+
+    @property
+    def log_wt_upper(self):
+        raise NotImplementedError
 
 
 class ERS(ABC):
