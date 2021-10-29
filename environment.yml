@@ -92,25 +92,25 @@ dependencies:
   - zipp=3.1.0=py_0
   - zlib=1.2.11=h7b6447c_3
   - pip:
-    - cycler==0.10.0
-    - dill==0.3.2
-    - kiwisolver==1.2.0
-    - llvmlite==0.33.0
-    - matplotlib==3.2.2
-    - more-itertools==8.4.0
-    - multiprocess==0.70.10
-    - numba==0.50.1
-    - numpy==1.19.0
-    - pandas==1.0.5
-    - pathos==0.2.6
-    - pillow==7.2.0
-    - pluggy==0.13.1
-    - pox==0.2.8
-    - ppft==1.6.6.2
-    - py==1.9.0
-    - pytest==5.4.3
-    - pytz==2020.1
-    - scipy==1.5.1
-    - tqdm==4.47.0
+      - cycler==0.10.0
+      - dill==0.3.2
+      - kiwisolver==1.2.0
+      - llvmlite==0.33.0
+      - matplotlib==3.2.2
+      - more-itertools==8.4.0
+      - multiprocess==0.70.10
+      - numba==0.50.1
+      - numpy==1.19.0
+      - pandas==1.0.5
+      - pathos==0.2.6
+      - pillow==7.2.0
+      - pluggy==0.13.1
+      - pox==0.2.8
+      - ppft==1.6.6.2
+      - py==1.9.0
+      - pytest==5.4.3
+      - pytz==2020.1
+      - scipy==1.5.1
+      - tqdm==4.47.0
 prefix: /data/hylia/thornton/miniconda3/envs/venv
 

@@ -1,9 +1,10 @@
-from mlflow import log_metric, log_param, log_artifacts, log_artifact
-import os, sys
-import numpy as np
+import matplotlib
 import matplotlib.pyplot as plt
+import numpy as np
+import os
+import sys
+from mlflow import log_metric, log_param, log_artifacts, log_artifact
 
-import matplotlib 
 matplotlib.use('Agg')
 
 sys.path.append('../..')
@@ -12,7 +13,7 @@ from ers.runners import run_parallel, process_outputs, model_factory
 from ers.utils import pickle_obj, unpickle_obj
 import argparse
 
-#if __name__ == "__main__":
+# if __name__ == "__main__":
 # get arguments
 parser = argparse.ArgumentParser()
 parser.add_argument('--T', action='store', type=int, default=50)
@@ -28,7 +29,7 @@ parser.add_argument('--n_workers', action='store', type=int, default=2)
 parser.add_argument('--out_dir', action='store', type=str, default='./')
 parser.add_argument('--model_tag', action='store', type=str, default='hardobstacle')
 args = parser.parse_args()
-#args = parser.parse_args([])
+# args = parser.parse_args([])
 
 # General Params
 T = args.T
@@ -40,9 +41,8 @@ out_dir = args.out_dir
 n_workers = args.n_workers
 model_tag = args.model_tag
 
-params =args.__dict__
+params = args.__dict__
 np.random.seed(seed=seed)
-
 
 # init model
 model = model_factory(model_tag, params)
@@ -61,10 +61,7 @@ if hasattr(model, 'generate_x'):
     log_artifact(fp)
 else:
     xtrue = None
-    y= None
-
-
-
+    y = None
 
 # run sampler
 run_parallel(n_workers, model, n_samples, n_particles, T, y, out_dir)
@@ -83,27 +80,24 @@ pacc_avg = np.mean(paccs)
 log_metric('pacc_std', pacc_std)
 log_metric('pacc_avg', pacc_avg)
 
-
 fig, axs = plt.subplots(d, gridspec_kw={'hspace': 0.4})
 for d_i in range(d):
     if d > 1:
-        ax = axs[d_i] 
+        ax = axs[d_i]
     else:
         ax = axs
     ax.set_title('Dimension {0}'.format(d_i))
     for i in range(candidate_xs.shape[0]):
-        ax.plot(candidate_xs[i,:,d_i], color = 'gray')
-        
+        ax.plot(candidate_xs[i, :, d_i], color='gray')
+
     for i in range(accepted_xs.shape[0]):
-        ax.plot(accepted_xs[i,:,d_i], color = 'blue')
+        ax.plot(accepted_xs[i, :, d_i], color='blue')
 
     average_x = np.mean(accepted_xs, axis=0)
     if xtrue is not None:
-        ax.plot(xtrue[:,d_i], color = 'red')
-    ax.plot(average_x[:,d_i], color = 'pink')
+        ax.plot(xtrue[:, d_i], color='red')
+    ax.plot(average_x[:, d_i], color='pink')
 
 fp = os.path.join(out_dir, 'summary_plot.png')
 plt.savefig(fp)
 log_artifact(fp)
-
-
